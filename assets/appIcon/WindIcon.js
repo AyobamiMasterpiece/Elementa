@@ -5,8 +5,8 @@ const WindIcon = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={50}
-    height={30}
-    transform={{ scale: 2 }}
+    height={40}
+    transform={{ scale: 2.5 }}
     fill="none"
     {...props}
   >

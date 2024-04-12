@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetForecast = (longitude, latitude, city) => {
+export const useGetForecast = (longitude, latitude) => {
   return useQuery({
     queryKey: ["forecast", latitude, longitude],
     queryFn: async () => {

@@ -7,19 +7,33 @@ import CelsiusIcon from "../UI/CelsiusIcon";
 import TommorowReportCard from "../Components/TommorowReportCard";
 import IconReport from "../Components/IconReport";
 import DayReportCard from "../Components/DayReportCard";
+import { useGetForecast } from "../api/weather";
+import { useLocation } from "../Context/LocationContext";
 
 export default function SevenDays() {
+  const { longitude, latitude } = useLocation();
+  const {
+    data: {
+      forecast: { forecastday },
+    },
+    isLoading,
+    isError,
+  } = useGetForecast(longitude, latitude);
+  const [today, tommorow] = forecastday;
+  const remainingDays = forecastday.slice(2);
+  console.log(remainingDays.length, "p");
+
   return (
     <View style={styles.root}>
       <LinearGradient
         colors={["#FEB054", "#FEE3BC"]}
         style={styles.linearGradientContainer}
       >
+        <TommorowReportCard tommorow={tommorow}></TommorowReportCard>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <TommorowReportCard></TommorowReportCard>
-
-          {[0, 1, 2, 3, 4, 5, 6].map(() => {
-            return <DayReportCard></DayReportCard>;
+          {remainingDays.map((dayObj) => {
+            const { date } = dayObj;
+            return <DayReportCard key={date} dayObj={dayObj}></DayReportCard>;
           })}
         </ScrollView>
       </LinearGradient>

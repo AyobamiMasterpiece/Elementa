@@ -7,6 +7,7 @@ import { Svg } from "react-native-svg";
 import HumidityIcon from "../assets/appIcon/HumidityIcon";
 
 export default function MainWeatherReportCard({ description, value, type }) {
+  console.log(typeof value);
   let svg = undefined;
   if (type == "rain") {
     svg = <RainIcon></RainIcon>;

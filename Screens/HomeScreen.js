@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
   Keyboard,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -28,17 +29,12 @@ import { useGetForecast, useGetLocations } from "../api/weather";
 import { kmToMm, mmToCm } from "../Util/conversionFunc";
 import LocationCard from "../Components/LocationCard";
 import { Skeleton } from "@rneui/themed";
+import { useNavigation } from "@react-navigation/native";
 export default function HomeScreen() {
   const [showInput, setShowInput] = useState(false);
   const [location, setLocation] = useState("");
   const [visibleItemIndex, setVisibleItemIndex] = useState(-1);
-
-  const onViewableItemsChanged = ({ viewableItems }) => {
-    if (viewableItems.length > 0) {
-      setVisibleItemIndex(viewableItems[0].index);
-    }
-  };
-
+  const navigation = useNavigation();
   const {
     latitude,
     longitude,
@@ -46,7 +42,18 @@ export default function HomeScreen() {
     city,
     isLoading: isLocationContextLoading,
   } = useLocation();
-  console.log(isLocationContextLoading, latitude, "normal");
+  useEffect(() => {
+    setShowInput(false);
+    console.log("tor");
+  }, [latitude, longitude]);
+
+  const onViewableItemsChanged = ({ viewableItems }) => {
+    if (viewableItems.length > 0) {
+      setVisibleItemIndex(viewableItems[0].index);
+    }
+  };
+
+  // console.log(isLocationContextLoading, latitude, "normal");
   // console.log(city, "enoconcernu", latitude, longitude);
   const changeLocationSearch = (text) => {
     setLocation(text);
@@ -66,6 +73,8 @@ export default function HomeScreen() {
   // console.log(data);
 
   if (isLoading || isLocationContextLoading) {
+    Keyboard.dismiss();
+    // setShowInput(false);
     return <Skeleton height={"100%"} animation="wave"></Skeleton>;
   }
 
@@ -82,7 +91,7 @@ export default function HomeScreen() {
     forecast: { forecastday },
   } = data;
   const { hour } = forecastday[0]; ///get hours of day 1
-
+  // console.log(typeof wind, "pp");
   rain = mmToCm(rain); //conversion of rain from mm to cm(standard)
   let weatherPerHour = hour.map((details) => {
     ////get object hours in clean formart
@@ -174,19 +183,36 @@ export default function HomeScreen() {
         ></MainReport>
         <MainWeatherReportCard
           description={"Rain"}
-          value={`${rain}cm`}
+          value={`${rain.toFixed(2)}cm`}
           type="rain"
         ></MainWeatherReportCard>
         <MainWeatherReportCard
           description={"Wind"}
-          value={"19km/h"}
+          value={`${wind.toFixed(2)}km/h`}
           type="wind"
         ></MainWeatherReportCard>
         <MainWeatherReportCard
           description={"Humidity"}
-          value={`${humidity}%`}
+          value={`${humidity.toFixed(2)}%`}
           type={"humidity"}
         ></MainWeatherReportCard>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <Text>Today</Text>
+          <Text>Tomorrow</Text>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("sevendays");
+            }}
+          >
+            <Text> Next 7 Days</Text>
+          </Pressable>
+        </View>
+
         {
           /////////scrll hourly
         }

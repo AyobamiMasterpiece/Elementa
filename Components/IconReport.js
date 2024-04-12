@@ -1,8 +1,18 @@
 import React from "react";
 import { Text, View } from "react-native";
 import RainIcon from "../assets/appIcon/RainIcon";
+import WindIcon from "../assets/appIcon/WindIcon";
+import HumidityIcon from "../assets/appIcon/HumidityIcon";
 
-export default function IconReport() {
+export default function IconReport({ value, type }) {
+  let icon;
+  if (type == "rain") {
+    icon = <RainIcon></RainIcon>;
+  } else if (type == "wind") {
+    icon = <WindIcon></WindIcon>;
+  } else {
+    icon = <HumidityIcon></HumidityIcon>;
+  }
   return (
     <View
       style={{
@@ -12,8 +22,14 @@ export default function IconReport() {
         padding: 5,
       }}
     >
-      <RainIcon></RainIcon>
-      <Text>{"1 cm"}</Text>
+      {icon}
+      <Text
+        style={{
+          fontSize: 13,
+        }}
+      >
+        {value}
+      </Text>
     </View>
   );
 }

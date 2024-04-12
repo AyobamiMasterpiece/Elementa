@@ -4,8 +4,21 @@ import { View, Text, ScrollView } from "react-native";
 import SunnySvg from "../assets/weathericon/SunnySvg";
 import IconReport from "./IconReport";
 import DayReportCard from "./DayReportCard";
+import dayjs from "dayjs";
 
-export default function TommorowReportCard() {
+export default function TommorowReportCard({ tommorow }) {
+  const {
+    date,
+    day: {
+      avgtemp_c: celsius,
+      avgtemp_f: farahneit,
+      totalprecip_mm: rain,
+      avghumidity: humidity,
+      maxwind_kph: wind,
+    },
+  } = tommorow;
+  // console.log(new Date(date).getDay());
+  // console.log(dayjs().format("dddd"), "playing");
   return (
     <Card
       style={{
@@ -26,7 +39,7 @@ export default function TommorowReportCard() {
             alignItems: "center",
           }}
         >
-          <Text>22°</Text>
+          <Text>{celsius.toFixed(2)}°</Text>
 
           <SunnySvg type={"small"}></SunnySvg>
         </View>
@@ -35,11 +48,12 @@ export default function TommorowReportCard() {
         style={{
           flexDirection: "row",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <IconReport></IconReport>
-        <IconReport></IconReport>
-        <IconReport></IconReport>
+        <IconReport value={rain + "cm"} type="rain"></IconReport>
+        <IconReport type="wind" value={wind + "km/h"}></IconReport>
+        <IconReport value={humidity + "%"}></IconReport>
       </View>
     </Card>
   );
