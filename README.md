@@ -27,7 +27,13 @@ Elementa is a cross-platform mobile application built with React Native, Expo, R
 
 ## Screenshots
 
-[Include screenshots here to showcase the app's interface and features]
+![WhatsApp Image 2024-06-16 at 5 13 54 PM (1)](https://github.com/AyobamiMasterpiece/Elementa/assets/96892970/3e4a5d28-fb8f-4730-a4b3-2c13f4f2dc84)
+
+![WhatsApp Image 2024-06-16 at 5 13 54 PM](https://github.com/AyobamiMasterpiece/Elementa/assets/96892970/4cad8ed4-5ee6-44f0-ad1c-6f022dacc4ae)
+
+![WhatsApp Image 2024-06-16 at 5 13 53 PM (1)](https://github.com/AyobamiMasterpiece/Elementa/assets/96892970/d0dfb53b-0d58-4e14-9ce6-4c1cc4b57fa4)
+
+![WhatsApp Image 2024-06-16 at 5 13 53 PM](https://github.com/AyobamiMasterpiece/Elementa/assets/96892970/09bfcbb5-016c-4b77-b1a7-b5b068044354)
 
 ## Contributing
 
